@@ -25,15 +25,15 @@ class Form extends Component {
         <input
           data-testid="name-input"
           type="text"
-          name=""
-          id=""
+          name="cardName"
+          id="cardName"
           value={ cardName }
           onChange={ onInputChange }
         />
         <textarea
           data-testid="description-input"
-          name=""
-          id=""
+          name="cardDescription"
+          id="cardDescription"
           cols="30"
           rows="10"
           value={ cardDescription }
@@ -41,24 +41,28 @@ class Form extends Component {
         />
         <input
           data-testid="attr1-input"
+          name="cardAttr1"
           type="number"
           value={ cardAttr1 }
           onChange={ onInputChange }
         />
         <input
           data-testid="attr2-input"
+          name="cardAttr2"
           type="number"
           value={ cardAttr2 }
           onChange={ onInputChange }
         />
         <input
           data-testid="attr3-input"
+          name="cardAttr3"
           type="number"
           value={ cardAttr3 }
           onChange={ onInputChange }
         />
         <input
           data-testid="image-input"
+          name="cardImage"
           type="text"
           value={ cardImage }
           onChange={ onInputChange }
@@ -67,8 +71,8 @@ class Form extends Component {
           data-testid="rare-input"
           value={ cardRare }
           onChange={ onInputChange }
-          name=""
-          id=""
+          name="cardRare"
+          id="cardRare"
         >
           <option value="normal">normal</option>
           <option value="raro">raro</option>
@@ -77,8 +81,8 @@ class Form extends Component {
         <input
           data-testid="trunfo-input"
           type="checkbox"
-          name=""
-          id=""
+          name="cardTrunfo"
+          id="cardTrunfo"
           checked={ cardTrunfo }
           onChange={ onInputChange }
         />
