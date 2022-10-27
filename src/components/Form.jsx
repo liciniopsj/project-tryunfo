@@ -15,8 +15,13 @@ class Form extends Component {
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick } = this.props;
+    const onSubmit = (submit) => {
+      submit.preventDefault();
+    };
     return (
-      <form action="">
+      <form
+        onSubmit={ onSubmit }
+      >
         <input
           data-testid="name-input"
           type="text"
