@@ -16,12 +16,45 @@ class App extends React.Component {
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
+      savedCards: [],
     };
     this.onInputChange = this.onInputChange.bind(this);
+    this.handleDisabledButton = this.handleDisabledButton.bind(this);
     this.handleSaveButton = this.handleSaveButton.bind(this);
   }
 
   handleSaveButton = () => {
+    const { cardName, cardDescription, cardImage, cardRare } = this.state; // strings
+    const { cardAttr1, cardAttr2, cardAttr3 } = this.state; // integer
+    const { cardTrunfo } = this.state; // boolean
+    const newCard = {
+      cardName,
+      cardDescription,
+      cardImage,
+      cardRare,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardTrunfo,
+    };
+
+    this.setState((prevState) => ({
+      savedCards: [...prevState.savedCards, newCard],
+    }));
+    this.setState({
+      cardName: '',
+      cardDescription: '',
+      cardImage: '',
+      cardRare: 'normal',
+      cardAttr1: 0,
+      cardAttr2: 0,
+      cardAttr3: 0,
+      cardTrunfo: false,
+      isSaveButtonDisabled: true,
+    });
+  };
+
+  handleDisabledButton = () => {
     const { cardName, cardDescription, cardImage, cardRare } = this.state;
     const { cardAttr1, cardAttr2, cardAttr3 } = this.state;
     const attr1 = parseInt(cardAttr1, 10);
@@ -34,8 +67,8 @@ class App extends React.Component {
     const attrTotal = attr1 + attr2 + attr3;
     const hasValidTotalBudget = attrTotal <= maxAttrTotalBudget;
     const attr1BudgetCheck = (cardAttr1 <= maxAttrBudget) && (cardAttr1 >= 0);
-    const attr2BudgetCheck = cardAttr2 <= maxAttrBudget && (cardAttr2 >= 0);
-    const attr3BudgetCheck = cardAttr3 <= maxAttrBudget && (cardAttr3 >= 0);
+    const attr2BudgetCheck = (cardAttr2 <= maxAttrBudget) && (cardAttr2 >= 0);
+    const attr3BudgetCheck = (cardAttr3 <= maxAttrBudget) && (cardAttr3 >= 0);
     const hasValidBudget = attr1BudgetCheck && attr2BudgetCheck && attr3BudgetCheck;
     const isValid = hasValidStrings && hasValidTotalBudget && hasValidBudget;
 
@@ -48,12 +81,12 @@ class App extends React.Component {
 
   onInputChange = ({ target }) => {
     const { name, checked, type, value } = target;
-    const stat = type === 'checkbox' ? checked : value;
+    const state = type === 'checkbox' ? checked : value;
     this.setState(
       {
-        [name]: stat,
+        [name]: state,
       },
-      this.handleSaveButton,
+      this.handleDisabledButton,
     );
   };
 
@@ -86,6 +119,7 @@ class App extends React.Component {
           hasTrunfo={ hasTrunfo }
           onInputChange={ this.onInputChange }
           isSaveButtonDisabled={ isSaveButtonDisabled }
+          onSaveButtonClick={ this.handleSaveButton }
         />
 
         <Card
