@@ -3,25 +3,25 @@ import Form from './components/Form';
 import Card from './components/Card';
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      cardName: '',
-      cardDescription: '',
-      cardAttr1: 0,
-      cardAttr2: 0,
-      cardAttr3: 0,
-      cardImage: '',
-      cardRare: 'normal',
-      cardTrunfo: false,
-      hasTrunfo: false,
-      isSaveButtonDisabled: true,
-      savedCards: [],
-    };
-    this.onInputChange = this.onInputChange.bind(this);
-    this.handleDisabledButton = this.handleDisabledButton.bind(this);
-    this.handleSaveButton = this.handleSaveButton.bind(this);
-  }
+  state = {
+    cardName: '',
+    cardDescription: '',
+    cardAttr1: 0,
+    cardAttr2: 0,
+    cardAttr3: 0,
+    cardImage: '',
+    cardRare: 'normal',
+    cardTrunfo: false,
+    hasTrunfo: false,
+    isSaveButtonDisabled: true,
+    savedCards: [],
+  };
+
+  trumpCardValidation = (cardTrunfo) => {
+    if (cardTrunfo) {
+      this.setState({ hasTrunfo: true });
+    }
+  };
 
   handleSaveButton = () => {
     const { cardName, cardDescription, cardImage, cardRare } = this.state; // strings
@@ -37,10 +37,10 @@ class App extends React.Component {
       cardAttr3,
       cardTrunfo,
     };
-
     this.setState((prevState) => ({
       savedCards: [...prevState.savedCards, newCard],
     }));
+    this.trumpCardValidation(cardTrunfo);
     this.setState({
       cardName: '',
       cardDescription: '',
@@ -103,7 +103,6 @@ class App extends React.Component {
       hasTrunfo,
       isSaveButtonDisabled,
     } = this.state;
-
     return (
       <div>
         <h1>Tryunfo</h1>

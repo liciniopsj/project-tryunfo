@@ -11,13 +11,23 @@ class Form extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      // hasTrunfo,
+      hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick } = this.props;
     const onSubmit = (submit) => {
       submit.preventDefault();
     };
+
+    const trumpInput = (<input
+      data-testid="trunfo-input"
+      type="checkbox"
+      name="cardTrunfo"
+      id="cardTrunfo"
+      checked={ cardTrunfo }
+      onChange={ onInputChange }
+    />);
+
     return (
       <form
         onSubmit={ onSubmit }
@@ -78,14 +88,9 @@ class Form extends Component {
           <option value="raro">raro</option>
           <option value="muito raro">muito raro</option>
         </select>
-        <input
-          data-testid="trunfo-input"
-          type="checkbox"
-          name="cardTrunfo"
-          id="cardTrunfo"
-          checked={ cardTrunfo }
-          onChange={ onInputChange }
-        />
+        {
+          hasTrunfo ? <p>Você já tem um Super Trunfo em seu baralho</p> : trumpInput
+        }
         <button
           data-testid="save-button"
           type="submit"
